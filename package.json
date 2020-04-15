@@ -1,0 +1,9 @@
+{
+  "name": "decision-app",
+  "version": "1.0.0",
+  "description": "Demo React App",
+  "main": "index.js",
+  "repository": "https://github.com/isaachambers/decision-app.git",
+  "author": "Isaac Kiyimba",
+  "license": "MIT"
+}
