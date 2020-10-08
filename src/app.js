@@ -1,76 +1,104 @@
-class Person{
-    constructor(name = 'Default', age = 0){
-        this.name = name;
-        this.age = age;
-    }
-    
-    greeting(){
-        return `Welcome ${this.name}`;
-    }
-
-    getDescription(){
-        return `${this.name} is ${this.age} year(s) old.`;
+class DecisionApp extends React.Component {
+    render() {
+        const name = "Decision App";
+        const subtitle = "Put your life in the hands of a machine!";
+        const options = ["One", "two", "three"]
+        return (
+            <div>
+                <Header title={name} subtitle={subtitle}/>
+                <Action/>
+                <Options options={options}/>
+                <AddOption/>
+            </div>
+        );
     }
 }
 
-const person = new Person("Mark", 45); 
-console.log(person.greeting());
-console.log(person.getDescription());
+class Header extends React.Component {
+    render() {
+        return (
+            <div>
+                <h1>{this.props.title}</h1>
+                <p>{this.props.subtitle}</p>
+            </div>
+        );
+    }
+}
 
-
-const other = new Person(); 
-console.log(other.greeting());
-console.log(other.getDescription());
-
-class Student extends Person {
-
-    constructor(name, age, major){
-        super(name, age);
-        this.major = major;
+class Action extends React.Component {
+    handleChooseOption() {
+        alert("Right Above It")
     }
 
-    hasMajor(){
-        return !!this.major;
+    render() {
+        return (
+            <div>
+                <button onClick={this.handleChooseOption}>What should I do?</button>
+            </div>
+        );
+    }
+}
+
+class Options extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleRemoveAll = this.handleRemoveAll.bind(this)
     }
 
-    getDescription(){
-        let description = super.getDescription();
-        if(this.hasMajor()){
-            description += ` Major is ${this.major}`;
+    handleRemoveAll() {
+        alert("remove All")
+    }
+
+    render() {
+        return (
+            <div>
+                {this.props.options.length === 0 ? <p>You have no options</p> :
+                    <p>You have {this.props.options.length} options</p>}
+                {this.props.options.map((value, index) => <Option name={value}/>)}
+                <div>
+                    <button onClick={this.handleRemoveAll}>Remove All</button>
+                </div>
+            </div>
+        );
+    }
+}
+
+class Option extends React.Component {
+    render() {
+        return (
+            <div>
+                <p>{this.props.name}</p>
+            </div>
+        );
+    }
+}
+
+class AddOption extends React.Component {
+    constructor(props) {
+        super(props);
+        this.submitForm = this.submitForm.bind(this)
+    }
+
+    submitForm(event) {
+        event.preventDefault();
+        const option = event.target.elements.option.value.trim();
+        if (option) {
+            // app.options.push({value : option, key: app.options.length});
+            event.target.elements.option.value = '';
+            alert(option)
         }
-        return description;
+    }
+
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.submitForm}>
+                    <input type="text" name="option"/>
+                    <button>Add</button>
+                </form>
+            </div>
+        );
     }
 }
 
-
-const student = new Student("Jimmy",32,"Computer Science");
-
-console.log(student.getDescription());
-
-const billy = new Student("Billy",32);
-console.log(billy.getDescription());
-
-class Traveller extends Person {
-
-    constructor(name, age, homeLocation){
-        super(name,age);
-        this.homeLocation = homeLocation;
-    }
-
-    greeting(){
-         let greeting = super.greeting();
-        if(this.hasHomeLocation()){
-            greeting += ` comes from ${this.homeLocation}`;
-        }
-        return greeting;
-    }
-
-    hasHomeLocation(){
-        return !!this.homeLocation;
-    }
-}
-
-const traveller = new Traveller("Jimmy",12,"Kampala Mukadde");
-console.log(traveller.greeting());
-const traveller2 = new Traveller("Kassode",2);
-console.log(traveller2.greeting());
+ReactDOM.render(<DecisionApp/>, document.getElementById("app"))
