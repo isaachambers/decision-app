@@ -6,8 +6,16 @@
   "repository": "https://github.com/isaachambers/decision-app.git",
   "author": "Isaac Kiyimba",
   "license": "MIT",
+  "scripts": {
+    "serve": "live-server public/ --port=4200",
+    "build": "webpack --watch",
+    "build-babel": "babel src/playground/app.js --out-file=public/scripts/app.js --presets=env,react --watch"
+  },
   "dependencies": {
+    "babel-cli": "6.24.1",
     "babel-preset-env": "1.5.2",
-    "babel-preset-react": "6.24.1"
+    "babel-preset-react": "6.24.1",
+    "live-server": "^1.2.1",
+    "webpack": "3.1.0"
   }
 }
