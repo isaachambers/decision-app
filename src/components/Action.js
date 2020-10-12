@@ -1,12 +1,8 @@
 import React from "react"
 
 export default class Action extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleChooseOption = this.handleChooseOption.bind(this)
-    }
-
-    handleChooseOption() {
+    
+    handleChooseOption = () => {
         const randomNumber = Math.floor(Math.random() * this.props.options.length);
         alert(this.props.options[randomNumber]);
     }
