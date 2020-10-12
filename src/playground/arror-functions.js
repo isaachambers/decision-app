@@ -43,7 +43,7 @@ const template = (
     {user.age && <p>Age : {user.age}</p>}
     {user.age < 18 ? <p>Age Group : Minor</p> : <p>Age Group : Senior</p>}
     {getLocation(user.location)}
-    <p>{user.options.length > 0 ? "Here are your options" : "No Options"}</p>
+    <p>{user.options.length > 0 ? "Here are your options" : "No Options.js"}</p>
     <ol>
         <li>Item 1</li>
         <li>Item 2</li>
