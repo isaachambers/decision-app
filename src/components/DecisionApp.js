@@ -3,10 +3,13 @@ import Header from "./Header";
 import Action from "./Action";
 import Options from "./Options";
 import AddOption from "./AddOption";
+import OptionModal from "./OptionModal";
+import Modal from "react-modal";
 
 export default class DecisionApp extends React.Component {
     state = {
-        options: []
+        options: [],
+        selectedOption: undefined
     }
     title = "Decision App"
     subtitle = "Put your choice in the hands of a machine!"
@@ -41,11 +44,22 @@ export default class DecisionApp extends React.Component {
     }
 
     handleRemoveOption = (newOption) => {
-        console.log(newOption)
         this.setState((prevState) => ({
             options: prevState.options.filter((option) => {
                 return option !== newOption;
             })
+        }));
+    }
+    handleChooseOption = () => {
+        const randomNumber = Math.floor(Math.random() * this.state.options.length);
+        this.setState((prevState) => ({
+            selectedOption: prevState.options[randomNumber]
+        }))
+    }
+
+    onModalClose = () => {
+        this.setState(() => ({
+            selectedOption: undefined
         }));
     }
 
@@ -65,14 +79,18 @@ export default class DecisionApp extends React.Component {
         return (
             <div>
                 <Header title={this.title} subtitle={this.subtitle}/>
-                <Action options={this.state.options} isEnabled={this.state.options.length === 0}/>
+                <Action handleChooseOption={this.handleChooseOption} options={this.state.options}
+                        isEnabled={this.state.options.length === 0}/>
                 <Options options={this.state.options} removeAllHandler={this.removeAllOptionsHandler}
                          removeOptionHandler={this.handleRemoveOption}/>
                 <AddOption addHandler={this.addNewOptionHandler}/>
+                <OptionModal isModalOpen={!!this.state.selectedOption} option={this.state.selectedOption}
+                             onModalClose={this.onModalClose}/>
             </div>
         );
     }
 }
+Modal.setAppElement('#app')
 
 // DecisionApp.defaultProps = {
 //     options: []
