@@ -79,13 +79,18 @@ export default class DecisionApp extends React.Component {
         return (
             <div>
                 <Header title={this.title} subtitle={this.subtitle}/>
-                <Action handleChooseOption={this.handleChooseOption} options={this.state.options}
-                        isEnabled={this.state.options.length === 0}/>
-                <Options options={this.state.options} removeAllHandler={this.removeAllOptionsHandler}
-                         removeOptionHandler={this.handleRemoveOption}/>
-                <AddOption addHandler={this.addNewOptionHandler}/>
-                <OptionModal isModalOpen={!!this.state.selectedOption} option={this.state.selectedOption}
-                             onModalClose={this.onModalClose}/>
+                <div className="container">
+                    <Action handleChooseOption={this.handleChooseOption} options={this.state.options}
+                            isEnabled={this.state.options.length === 0}/>
+                    <div className="widget">
+                        <Options options={this.state.options} removeAllHandler={this.removeAllOptionsHandler}
+                                 removeOptionHandler={this.handleRemoveOption}/>
+                        <AddOption addHandler={this.addNewOptionHandler}/>
+                        <OptionModal isModalOpen={!!this.state.selectedOption} option={this.state.selectedOption}
+                                     onModalClose={this.onModalClose}/>
+                    </div>
+
+                </div>
             </div>
         );
     }
